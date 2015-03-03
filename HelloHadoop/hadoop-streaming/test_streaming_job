@@ -1,0 +1,19 @@
+#Update commands as needed to match your system
+#!/bin/bash
+
+pathToMapScript="WordCount.py"
+pathToReduceScript="SumReducer.py"
+chmod +x $pathToMapScript
+chmod +x $pathToReduceScript
+
+echo "Use this script to test Hadoop streaming" > testData
+echo "This script may be used to test Hadoop Streaming" >> testData
+
+echo "Streaming into Mapper"
+cat testData | ./WordCount.py
+
+echo "Streaming from Mapper into Reducer" 
+cat testData | ./WordCount.py | ./SumReducer.py
+
+echo "Streaming from Mapper into Reducer, sorted"
+cat testData | ./WordCount.py | sort | ./SumReducer.py

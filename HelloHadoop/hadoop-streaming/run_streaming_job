@@ -1,0 +1,20 @@
+#Update commands as needed to match your system
+#!/bin/bash
+
+inputDir="shakespeare"
+outputDir="output/HelloHadoopStreaming"
+pathToMapScript="WordCount.py"
+pathToReduceScript="SumReducer.py"
+mapBaseName="WordCount.py"
+reduceBaseName="SumReducer.py"
+
+chmod +x $pathToMapScript
+chmod +x $pathToReduceScript
+
+hadoop fs -rm -r $outputDir
+
+hadoop jar /usr/lib/hadoop-0.20-mapreduce/\
+contrib/streaming/hadoop-streaming*.jar \
+-input $inputDir -output $outputDir \
+-file $pathToMapScript -file $pathToReduceScript \
+-mapper $mapBaseName -reducer $reduceBaseName
