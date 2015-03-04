@@ -1,4 +1,4 @@
-package challenge;
+package solution0;
 
 import java.io.IOException;
 
@@ -13,7 +13,13 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritabl
   @Override
   public void map(LongWritable key, Text value, Context context)
       throws IOException, InterruptedException {
-	  	//To-Do: Implement the map method
-	  
+
+    String line = value.toString();
+
+    for (String word : line.split("\\W+")) {
+      if (word.length() > 0) {
+        context.write(new Text(word), one);
+      }
+    }
   }
 }
